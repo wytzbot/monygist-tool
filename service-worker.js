@@ -1,7 +1,7 @@
 // MonyGist Subscription Manager
 // Service Worker v1
 
-const CACHE_NAME = "monygist-v1";
+const CACHE_NAME = "monygist-v7";
 
 const FILES_TO_CACHE = [
   "./",
