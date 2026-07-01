@@ -5,12 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MonyGist Subscription Savings Calculator</title>
 
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b6b3a">
+
+<!-- Google Fonts: Poppins -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Poppins',Arial,sans-serif;
 }
 
 body{
@@ -31,12 +39,14 @@ h1{
 text-align:center;
 color:#0b6b3a;
 margin-bottom:10px;
+font-weight:700;
 }
 
 p{
 text-align:center;
 color:#555;
 margin-bottom:25px;
+font-weight:300;
 }
 
 .subscription{
@@ -44,19 +54,20 @@ display:flex;
 justify-content:space-between;
 margin-bottom:15px;
 gap:10px;
+align-items:center;
 }
 
 .subscription input{
 width:140px;
 padding:10px;
 font-size:16px;
+border:1px solid #ddd;
+border-radius:8px;
 }
 
 .subscription label{
-font-weight:bold;
+font-weight:600;
 flex:1;
-display:flex;
-align-items:center;
 }
 
 button{
@@ -69,6 +80,7 @@ border:none;
 border-radius:10px;
 cursor:pointer;
 margin-top:20px;
+font-weight:600;
 }
 
 button:hover{
@@ -82,6 +94,13 @@ padding:20px;
 border-radius:10px;
 font-size:18px;
 line-height:1.8;
+border-left:4px solid #0b6b3a;
+}
+
+.small-text{
+font-size:14px;
+color:#777;
+margin-top:5px;
 }
 </style>
 </head>
@@ -96,28 +115,34 @@ line-height:1.8;
 
 <div class="subscription">
 <label>Netflix</label>
-<input type="number" id="netflix" placeholder="$">
+<input type="number" id="netflix" placeholder="$" min="0" step="0.01">
 </div>
 
 <div class="subscription">
 <label>Spotify</label>
-<input type="number" id="spotify" placeholder="$">
+<input type="number" id="spotify" placeholder="$" min="0" step="0.01">
 </div>
 
 <div class="subscription">
 <label>ChatGPT</label>
-<input type="number" id="chatgpt" placeholder="$">
+<input type="number" id="chatgpt" placeholder="$" min="0" step="0.01">
 </div>
 
 <div class="subscription">
 <label>Amazon Prime</label>
-<input type="number" id="prime" placeholder="$">
+<input type="number" id="prime" placeholder="$" min="0" step="0.01">
 </div>
 
 <div class="subscription">
 <label>Other</label>
-<input type="number" id="other" placeholder="$">
+<input type="number" id="other" placeholder="$" min="0" step="0.01">
 </div>
+
+<div class="subscription">
+<label>Monthly Income</label>
+<input type="number" id="income" placeholder="$ Optional" min="0" step="0.01">
+</div>
+<p class="small-text">*Optional: Add income to see % of budget spent on subscriptions</p>
 
 <button onclick="calculate()">Calculate Savings</button>
 
@@ -125,37 +150,57 @@ line-height:1.8;
 Your results will appear here.
 </div>
 
+</div>
+
 <script>
 function calculate(){
+  let netflix=Number(document.getElementById('netflix').value)||0;
+  let spotify=Number(document.getElementById('spotify').value)||0;
+  let chatgpt=Number(document.getElementById('chatgpt').value)||0;
+  let prime=Number(document.getElementById('prime').value)||0;
+  let other=Number(document.getElementById('other').value)||0;
+  let income=Number(document.getElementById('income').value)||0;
 
-let netflix=Number(document.getElementById('netflix').value)||0;
-let spotify=Number(document.getElementById('spotify').value)||0;
-let chatgpt=Number(document.getElementById('chatgpt').value)||0;
-let prime=Number(document.getElementById('prime').value)||0;
-let other=Number(document.getElementById('other').value)||0;
+  let monthly=netflix+spotify+chatgpt+prime+other;
+  let yearly=monthly*12;
 
-let monthly=netflix+spotify+chatgpt+prime+other;
-let yearly=monthly*12;
+  // NEW: % of Income Feature
+  let percentText = "";
+  if(income > 0){
+    let percent = (monthly / income * 100);
+    percentText = "<br><strong>% of Income:</strong> " + percent.toFixed(1) + "%";
+    if(percent > 20){
+      percentText += " ⚠️ Over 20% — experts at the CFPB suggest reviewing recurring expenses. Check ConsumerFinance.gov to verify.";
+    } else if(percent > 10){
+      percentText += " 👀 Keep an eye on it.";
+    } else {
+      percentText += " ✅ Healthy range.";
+    }
+  }
 
-let advice="Great job keeping track of your subscriptions!";
+  let advice="Great job keeping track of your subscriptions!";
+  if(yearly>1000){
+    advice="⚠️ You're spending over $1,000/year. Consider cancelling services you rarely use.";
+  }else if(yearly>500){
+    advice="👍 Your spending is moderate. Review your subscriptions every few months.";
+  }else{
+    advice="🎉 Nice! Your subscription spending is relatively low.";
+  }
 
-if(yearly>1000){
-advice="⚠️ You're spending over $1,000/year. Consider cancelling services you rarely use.";
-}else if(yearly>500){
-advice="👍 Your spending is moderate. Review your subscriptions every few months.";
-}else{
-advice="🎉 Nice! Your subscription spending is relatively low.";
+  document.getElementById("result").innerHTML=
+    "<strong>Monthly Total:</strong> $" + monthly.toFixed(2) +
+    "<br><strong>Yearly Total:</strong> $" + yearly.toFixed(2) +
+    percentText +
+    "<br><br>" + advice;
 }
 
-document.getElementById("result").innerHTML=
-"<strong>Monthly Total:</strong> $" + monthly.toFixed(2) +
-"<br><strong>Yearly Total:</strong> $" + yearly.toFixed(2) +
-"<br><br>" + advice;
-
+// Register service worker
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
 }
 </script>
 
-</div>
-<script src="script.js"></script>
+<!-- Cache busting: change v=7 when you update -->
+<script src="script.js?v=7"></script>
 </body>
 </html>
