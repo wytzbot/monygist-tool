@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subscription Savings Calculator | MoneyGist</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f4f6f9;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:450px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+h1{
+text-align:center;
+color:#0b5ed7;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+font-size:16px;
+border:1px solid #ccc;
+border-radius:8px;
+box-sizing:border-box;
+}
+
+button{
+width:100%;
+padding:14px;
+background:#0b5ed7;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#084298;
+}
+
+.result{
+margin-top:20px;
+padding:15px;
+background:#eef7ff;
+border-radius:10px;
+font-size:18px;
+}
+
+.footer{
+text-align:center;
+margin-top:20px;
+font-size:14px;
+color:#777;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💳 Subscription Savings Calculator</h1>
+
+<p>Enter your monthly subscription costs.</p>
+
+<input type="number" id="netflix" placeholder="Netflix ($)">
+<input type="number" id="spotify" placeholder="Spotify ($)">
+<input type="number" id="prime" placeholder="Amazon Prime ($)">
+<input type="number" id="other" placeholder="Other Subscriptions ($)">
+
+<button onclick="calculate()">Calculate</button>
+
+<div class="result" id="result"></div>
+
+<div class="footer">
+Powered by <b>MoneyGist.top</b>
+</div>
+
+</div>
+
+<script>
+
+function calculate(){
+
+let netflix=Number(document.getElementById("netflix").value)||0;
+let spotify=Number(document.getElementById("spotify").value)||0;
+let prime=Number(document.getElementById("prime").value)||0;
+let other=Number(document.getElementById("other").value)||0;
+
+let monthly=netflix+spotify+prime+other;
+let yearly=monthly*12;
+
+let message="";
+
+if(yearly<200){
+message="✅ Great! Your subscription spending is low.";
+}
+else if(yearly<600){
+message="🙂 You may be able to save by cancelling unused services.";
+}
+else{
+message="⚠️ You're spending a lot on subscriptions. Review them carefully.";
+}
+
+document.getElementById("result").innerHTML=
+"<b>Monthly Total:</b> $"+monthly.toFixed(2)+
+"<br><br><b>Yearly Total:</b> $"+yearly.toFixed(2)+
+"<br><br>"+message;
+
+}
+
+</script>
+
+</body>
+  </html>
