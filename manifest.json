@@ -1,1 +1,30 @@
-
+{
+  "name": "MonyGist Subscription Manager",
+  "short_name": "MonyGist",
+  "description": "Track your subscriptions, monitor spending, and never miss a renewal.",
+  "start_url": "./manager.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b6b3a",
+  "orientation": "portrait",
+  "lang": "en",
+  "categories": [
+    "finance",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
