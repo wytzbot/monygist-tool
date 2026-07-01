@@ -2,214 +2,136 @@
 <html lang="en">
 <head>
   <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0b6b3a">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MonyGist.top - Subscription Manager</title>
+  <meta name="theme-color" content="#0b6b3a">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MonyGist.top - Subscription Manager</title>
 
-<link rel="stylesheet" href="style.css">
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Cache busting: bump v=7 when you update CSS -->
+  <link rel="stylesheet" href="style.css?v=7">
 
+  <style>
+    /* Fallback styles if style.css doesn't load */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+    body { background: #f4f7fb; }
+  </style>
 </head>
 
 <body>
 
 <header class="header">
-
-<div class="logo">
-💰 MonyGist<span>.top</span>
-</div>
-
-<nav>
-
-<a href="index.html">Calculator</a>
-<a href="manager.html" class="active">Subscription Manager</a>
-
-</nav>
-
+  <div class="logo">
+    💰 MonyGist<span>.top</span>
+  </div>
+  <nav>
+    <a href="index.html">Calculator</a>
+    <a href="manager.html" class="active">Subscription Manager</a>
+  </nav>
 </header>
 
 <section class="hero">
-
-<h1>Subscription Manager</h1>
-
-<p>
-Track every subscription in one place.
-Know exactly how much you're spending every month and year.
-Never lose track of your streaming services, AI subscriptions, or software.
-</p>
-
+  <h1>Subscription Manager</h1>
+  <p>
+    Track every subscription in one place.
+    Know exactly how much you're spending every month and year.
+    Never lose track of your streaming services, AI subscriptions, or software.
+  </p>
 </section>
 
 <div class="container">
 
-<div class="card">
+  <div class="card">
+    <h2>Add Subscription</h2>
+    <form id="subscriptionForm">
+      <div class="input-group">
+        <label for="service">Service Name</label>
+        <input type="text" id="service" placeholder="Netflix" required>
+      </div>
 
-<h2>Add Subscription</h2>
+      <div class="input-group">
+        <label for="cost">Monthly Cost ($)</label>
+        <input type="number" id="cost" placeholder="20" min="0" step="0.01" required>
+      </div>
 
-<form id="subscriptionForm">
+      <div class="input-group">
+        <label for="renewal">Renewal Date</label>
+        <input type="date" id="renewal" required>
+      </div>
 
-<div class="input-group">
+      <div class="input-group">
+        <label for="billing">Billing Cycle</label>
+        <select id="billing">
+          <option value="Monthly">Monthly</option>
+          <option value="Yearly">Yearly</option>
+        </select>
+      </div>
 
-<label>Service Name</label>
+      <button type="submit">➕ Add Subscription</button>
+    </form>
+  </div>
 
-<input
-type="text"
-id="service"
-placeholder="Netflix"
-required>
+  <div class="summary">
+    <div class="summary-card">
+      <h3>Monthly Spending</h3>
+      <h2 id="monthlyTotal">$0.00</h2>
+    </div>
+    <div class="summary-card">
+      <h3>Yearly Spending</h3>
+      <h2 id="yearlyTotal">$0.00</h2>
+    </div>
+    <div class="summary-card">
+      <h3>Total Subscriptions</h3>
+      <h2 id="totalSubscriptions">0</h2>
+    </div>
+  </div>
 
-</div>
+  <div class="table-card">
+    <h2>Your Subscriptions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Cost</th>
+          <th>Renewal</th>
+          <th>Billing</th>
+          <th>Days Left</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="subscriptionTable">
+        <tr>
+          <td colspan="6">No subscriptions added yet.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div class="input-group">
+  <div class="ads-box">
+    <p>Advertisement Space (Google AdSense)</p>
+  </div>
 
-<label>Monthly Cost ($)</label>
-
-<input
-type="number"
-id="cost"
-placeholder="20"
-required>
-
-</div>
-
-<div class="input-group">
-
-<label>Renewal Date</label>
-
-<input
-type="date"
-id="renewal"
-required>
-
-</div>
-
-<div class="input-group">
-
-<label>Billing Cycle</label>
-
-<select id="billing">
-
-<option value="Monthly">Monthly</option>
-
-<option value="Yearly">Yearly</option>
-
-</select>
-
-</div>
-
-<button type="submit">
-
-➕ Add Subscription
-
-</button>
-
-</form>
-
-</div>
-
-<div class="summary">
-
-<div class="summary-card">
-
-<h3>Monthly Spending</h3>
-
-<h2 id="monthlyTotal">$0.00</h2>
-
-</div>
-
-<div class="summary-card">
-
-<h3>Yearly Spending</h3>
-
-<h2 id="yearlyTotal">$0.00</h2>
+  <footer>
+    <p>© 2026 MonyGist.top • Smart Finance Tools</p>
+  </footer>
 
 </div>
 
-<div class="summary-card">
-
-<h3>Total Subscriptions</h3>
-
-<h2 id="totalSubscriptions">0</h2>
-
-</div>
-
-</div>
-
-<div class="table-card">
-
-<h2>Your Subscriptions</h2>
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Service</th>
-
-<th>Cost</th>
-
-<th>Renewal</th>
-
-<th>Billing</th>
-
-<th>Days Left</th>
-
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-<tbody id="subscriptionTable">
-
-<tr>
-
-<td colspan="6">
-
-No subscriptions added yet.
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-<div class="ads-box">
-
-<p>
-
-Advertisement Space (Google AdSense)
-
-</p>
-
-</div>
-
-<footer>
-
-<p>
-
-© 2026 MonyGist.top • Smart Finance Tools
-
-</p>
-
-</footer>
-
-</div>
-
-<script src="script.js"></script>
+<!-- Cache busting: bump v=7 when you update JS -->
+<script src="script.js?v=7"></script>
 <script>
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
-  </script>
+</script>
 </body>
-  </html>
+          </html>
