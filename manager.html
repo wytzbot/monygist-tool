@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <div id="login-section">
-    <h2>MonyGist</h2>
-    <button id="google-login">Login with Google</button>
-</div>
-
-<div id="app-section" style="display:none;">
-    <h2>Welcome <span id="user-email"></span></h2>
-    <button id="logout">Logout</button>
-</div>
-
-<script type="module" src="script.js"></script>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b6b3a">
   <meta charset="UTF-8">
@@ -23,11 +12,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Cache busting: bump v=7 when you update CSS -->
-  <link rel="stylesheet" href="style.css?v=7">
+  <!-- Cache busting: bump v=8 when you update CSS -->
+  <link rel="stylesheet" href="style.css?v=8">
 
   <style>
-    /* Fallback styles if style.css doesn't load */
     * {
       margin: 0;
       padding: 0;
@@ -35,10 +23,37 @@
       font-family: 'Poppins', Arial, sans-serif;
     }
     body { background: #f4f7fb; }
+    .auth-bar {
+      background: #0b6b3a;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .auth-bar button {
+      background: white;
+      color: #0b6b3a;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-left: 10px;
+    }
   </style>
 </head>
 
 <body>
+
+<!-- LOGIN BAR - This must be in <body> -->
+<div class="auth-bar" id="login-section">
+  <span>Login to save your subscriptions</span>
+  <button id="google-login">Login with Google</button>
+</div>
+
+<div class="auth-bar" id="app-section" style="display:none;">
+  <span>Welcome <span id="user-email"></span></span>
+  <button id="logout">Logout</button>
+</div>
 
 <header class="header">
   <div class="logo">
@@ -137,8 +152,8 @@
 
 </div>
 
-<!-- Cache busting: bump v=7 when you update JS -->
-<script src="script.js?v=7"></script>
+<!-- IMPORTANT: Only load script.js ONCE as type="module" -->
+<script type="module" src="script.js?v=8"></script>
 <script>
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
