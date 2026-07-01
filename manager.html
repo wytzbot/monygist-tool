@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b6b3a">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MonyGist.top - Subscription Manager</title>
@@ -204,6 +206,10 @@ Advertisement Space (Google AdSense)
 </div>
 
 <script src="script.js"></script>
-
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+  </script>
 </body>
   </html>
