@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <div id="login-section">
-    <h2>MonyGist</h2>
-    <button id="google-login">Login with Google</button>
-</div>
-
-<div id="app-section" style="display:none;">
-    <h2>Welcome <span id="user-email"></span></h2>
-    <button id="logout">Logout</button>
-</div>
-
-<script type="module" src="script.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MonyGist Subscription Savings Calculator</title>
@@ -35,6 +24,25 @@ font-family:'Poppins',Arial,sans-serif;
 body{
 background:#f4f7fb;
 padding:20px;
+}
+
+.auth-bar {
+  background: #0b6b3a;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  margin: -20px -20px 20px -20px;
+  border-radius: 0;
+}
+.auth-bar button {
+  background: white;
+  color: #0b6b3a;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 10px;
 }
 
 .container{
@@ -118,6 +126,17 @@ margin-top:5px;
 
 <body>
 
+<!-- LOGIN BAR - Must be in <body> -->
+<div class="auth-bar" id="login-section">
+  <span>Save your calculations</span>
+  <button id="google-login">Login with Google</button>
+</div>
+
+<div class="auth-bar" id="app-section" style="display:none;">
+  <span>Welcome <span id="user-email"></span></span>
+  <button id="logout">Logout</button>
+</div>
+
 <div class="container">
 
 <h1>💰 MonyGist Subscription Savings Calculator</h1>
@@ -161,8 +180,7 @@ margin-top:5px;
 Your results will appear here.
 </div>
 
-</div>
-
+<!-- Your existing calculator script -->
 <script>
 function calculate(){
   let netflix=Number(document.getElementById('netflix').value)||0;
@@ -175,7 +193,6 @@ function calculate(){
   let monthly=netflix+spotify+chatgpt+prime+other;
   let yearly=monthly*12;
 
-  // NEW: % of Income Feature
   let percentText = "";
   if(income > 0){
     let percent = (monthly / income * 100);
@@ -204,14 +221,14 @@ function calculate(){
     percentText +
     "<br><br>" + advice;
 }
+</script>
 
-// Register service worker
+<!-- Appwrite login script - ONLY load once as module -->
+<script type="module" src="script.js?v=8"></script>
+<script>
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
 </script>
-
-<!-- Cache busting: change v=7 when you update -->
-<script src="script.js?v=7"></script>
 </body>
-</html>
+  </html>
