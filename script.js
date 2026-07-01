@@ -154,3 +154,24 @@ form.addEventListener("submit", function(e){
     form.reset();
 
 });
+// ===============================
+// Part 3 - Delete & Load Data
+// ===============================
+
+function deleteSubscription(index){
+
+    if(confirm("Delete this subscription?")){
+
+        subscriptions.splice(index,1);
+
+        saveSubscriptions();
+
+        renderTable();
+
+    }
+
+}
+
+// Load saved subscriptions when page opens
+
+renderTable();
