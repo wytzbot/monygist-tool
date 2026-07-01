@@ -3,128 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Subscription Savings Calculator | MoneyGist</title>
+<title>MonyGist Subscription Savings Calculator</title>
 
 <style>
-body{
-font-family:Arial,sans-serif;
-background:#f4f6f9;
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f7fb;
 padding:20px;
 }
 
 .container{
-max-width:450px;
+max-width:700px;
 margin:auto;
-background:white;
-padding:20px;
-border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,.15);
+background:#fff;
+padding:25px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
 h1{
 text-align:center;
-color:#0b5ed7;
+color:#0b6b3a;
+margin-bottom:10px;
 }
 
-input{
-width:100%;
-padding:12px;
-margin:10px 0;
+p{
+text-align:center;
+color:#555;
+margin-bottom:25px;
+}
+
+.subscription{
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+gap:10px;
+}
+
+.subscription input{
+width:140px;
+padding:10px;
 font-size:16px;
-border:1px solid #ccc;
-border-radius:8px;
-box-sizing:border-box;
+}
+
+.subscription label{
+font-weight:bold;
+flex:1;
+display:flex;
+align-items:center;
 }
 
 button{
 width:100%;
-padding:14px;
-background:#0b5ed7;
+padding:15px;
+font-size:18px;
+background:#0b6b3a;
 color:white;
 border:none;
-border-radius:8px;
-font-size:18px;
+border-radius:10px;
 cursor:pointer;
+margin-top:20px;
 }
 
 button:hover{
-background:#084298;
+background:#09562f;
 }
 
 .result{
-margin-top:20px;
-padding:15px;
-background:#eef7ff;
+margin-top:25px;
+background:#eef9f1;
+padding:20px;
 border-radius:10px;
 font-size:18px;
-}
-
-.footer{
-text-align:center;
-margin-top:20px;
-font-size:14px;
-color:#777;
+line-height:1.8;
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>💳 Subscription Savings Calculator</h1>
+<h1>💰 MonyGist Subscription Savings Calculator</h1>
 
-<p>Enter your monthly subscription costs.</p>
+<p>Enter your monthly subscription costs and discover how much you're spending each year.</p>
 
-<input type="number" id="netflix" placeholder="Netflix ($)">
-<input type="number" id="spotify" placeholder="Spotify ($)">
-<input type="number" id="prime" placeholder="Amazon Prime ($)">
-<input type="number" id="other" placeholder="Other Subscriptions ($)">
-
-<button onclick="calculate()">Calculate</button>
-
-<div class="result" id="result"></div>
-
-<div class="footer">
-Powered by <b>MoneyGist.top</b>
+<div class="subscription">
+<label>Netflix</label>
+<input type="number" id="netflix" placeholder="$">
 </div>
 
+<div class="subscription">
+<label>Spotify</label>
+<input type="number" id="spotify" placeholder="$">
+</div>
+
+<div class="subscription">
+<label>ChatGPT</label>
+<input type="number" id="chatgpt" placeholder="$">
+</div>
+
+<div class="subscription">
+<label>Amazon Prime</label>
+<input type="number" id="prime" placeholder="$">
+</div>
+
+<div class="subscription">
+<label>Other</label>
+<input type="number" id="other" placeholder="$">
+</div>
+
+<button onclick="calculate()">Calculate Savings</button>
+
+<div class="result" id="result">
+Your results will appear here.
 </div>
 
 <script>
-
 function calculate(){
 
-let netflix=Number(document.getElementById("netflix").value)||0;
-let spotify=Number(document.getElementById("spotify").value)||0;
-let prime=Number(document.getElementById("prime").value)||0;
-let other=Number(document.getElementById("other").value)||0;
+let netflix=Number(document.getElementById('netflix').value)||0;
+let spotify=Number(document.getElementById('spotify').value)||0;
+let chatgpt=Number(document.getElementById('chatgpt').value)||0;
+let prime=Number(document.getElementById('prime').value)||0;
+let other=Number(document.getElementById('other').value)||0;
 
-let monthly=netflix+spotify+prime+other;
+let monthly=netflix+spotify+chatgpt+prime+other;
 let yearly=monthly*12;
 
-let message="";
+let advice="Great job keeping track of your subscriptions!";
 
-if(yearly<200){
-message="✅ Great! Your subscription spending is low.";
-}
-else if(yearly<600){
-message="🙂 You may be able to save by cancelling unused services.";
-}
-else{
-message="⚠️ You're spending a lot on subscriptions. Review them carefully.";
+if(yearly>1000){
+advice="⚠️ You're spending over $1,000/year. Consider cancelling services you rarely use.";
+}else if(yearly>500){
+advice="👍 Your spending is moderate. Review your subscriptions every few months.";
+}else{
+advice="🎉 Nice! Your subscription spending is relatively low.";
 }
 
 document.getElementById("result").innerHTML=
-"<b>Monthly Total:</b> $"+monthly.toFixed(2)+
-"<br><br><b>Yearly Total:</b> $"+yearly.toFixed(2)+
-"<br><br>"+message;
+"<strong>Monthly Total:</strong> $" + monthly.toFixed(2) +
+"<br><strong>Yearly Total:</strong> $" + yearly.toFixed(2) +
+"<br><br>" + advice;
 
 }
-
 </script>
+
+</div>
 
 </body>
 </html>
