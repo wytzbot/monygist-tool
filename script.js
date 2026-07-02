@@ -1,7 +1,7 @@
 import { Client, Account } from 'https://cdn.jsdelivr.net/npm/appwrite@15.0.0/+esm';
 
 const client = new Client()
-    .setEndpoint('https://cloud.appwrite.io/v1')
+    .setEndpoint('https://nyc.cloud.appwrite.io/v1')
     .setProject('6a4580c700274964d612');
 
 const account = new Account(client);
