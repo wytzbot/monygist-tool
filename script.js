@@ -10,8 +10,8 @@ const account = new Account(client);
 document.getElementById('google-login')?.addEventListener('click', () => {
     account.createOAuth2Session(
         'google',
-        'https://wytzbot.github.io/monygist/', // Success URL
-        'https://wytzbot.github.io/monygist/'  // Fail URL
+        'https://wytzbot.github.io/monygist-tool/',  // Success URL - FIXED
+        'https://wytzbot.github.io/monygist-tool/'   // Fail URL - FIXED
     );
 });
 
