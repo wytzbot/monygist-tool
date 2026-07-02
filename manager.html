@@ -1,163 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0b6b3a">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MonyGist.top - Subscription Manager</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MonyGist - Manager</title>
 
-  <!-- Google Fonts: Poppins -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b6b3a">
 
-  <!-- Cache busting: bump v=8 when you update CSS -->
-  <link rel="stylesheet" href="style.css?v=8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', Arial, sans-serif;
-    }
-    body { background: #f4f7fb; }
-    .auth-bar {
-      background: #0b6b3a;
-      color: white;
-      padding: 10px 20px;
-      text-align: center;
-    }
-    .auth-bar button {
-      background: white;
-      color: #0b6b3a;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      margin-left: 10px;
-    }
-  </style>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',Arial,sans-serif;
+}
+
+body{
+background:#f4f7fb;
+padding:20px;
+}
+
+.auth-bar {
+  background: #0b6b3a;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  margin: -20px -20px 20px -20px;
+  border-radius: 0;
+}
+.auth-bar button {
+  background: white;
+  color: #0b6b3a;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:#fff;
+padding:25px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+h1{
+text-align:center;
+color:#0b6b3a;
+margin-bottom:10px;
+font-weight:700;
+}
+
+#app-section {
+  display: none;
+}
+</style>
 </head>
 
 <body>
 
-<!-- LOGIN BAR - This must be in <body> -->
+<!-- LOGIN BAR -->
 <div class="auth-bar" id="login-section">
-  <span>Login to save your subscriptions</span>
+  <span>Login to access manager</span>
   <button id="google-login">Login with Google</button>
 </div>
 
-<div class="auth-bar" id="app-section" style="display:none;">
+<div class="auth-bar" id="app-section">
   <span>Welcome <span id="user-email"></span></span>
   <button id="logout">Logout</button>
 </div>
 
-<header class="header">
-  <div class="logo">
-    💰 MonyGist<span>.top</span>
-  </div>
-  <nav>
-    <a href="index.html">Calculator</a>
-    <a href="manager.html" class="active">Subscription Manager</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <h1>Subscription Manager</h1>
-  <p>
-    Track every subscription in one place.
-    Know exactly how much you're spending every month and year.
-    Never lose track of your streaming services, AI subscriptions, or software.
-  </p>
-</section>
-
-<div class="container">
-
-  <div class="card">
-    <h2>Add Subscription</h2>
-    <form id="subscriptionForm">
-      <div class="input-group">
-        <label for="service">Service Name</label>
-        <input type="text" id="service" placeholder="Netflix" required>
-      </div>
-
-      <div class="input-group">
-        <label for="cost">Monthly Cost ($)</label>
-        <input type="number" id="cost" placeholder="20" min="0" step="0.01" required>
-      </div>
-
-      <div class="input-group">
-        <label for="renewal">Renewal Date</label>
-        <input type="date" id="renewal" required>
-      </div>
-
-      <div class="input-group">
-        <label for="billing">Billing Cycle</label>
-        <select id="billing">
-          <option value="Monthly">Monthly</option>
-          <option value="Yearly">Yearly</option>
-        </select>
-      </div>
-
-      <button type="submit">➕ Add Subscription</button>
-    </form>
-  </div>
-
-  <div class="summary">
-    <div class="summary-card">
-      <h3>Monthly Spending</h3>
-      <h2 id="monthlyTotal">$0.00</h2>
-    </div>
-    <div class="summary-card">
-      <h3>Yearly Spending</h3>
-      <h2 id="yearlyTotal">$0.00</h2>
-    </div>
-    <div class="summary-card">
-      <h3>Total Subscriptions</h3>
-      <h2 id="totalSubscriptions">0</h2>
-    </div>
-  </div>
-
-  <div class="table-card">
-    <h2>Your Subscriptions</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Service</th>
-          <th>Cost</th>
-          <th>Renewal</th>
-          <th>Billing</th>
-          <th>Days Left</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="subscriptionTable">
-        <tr>
-          <td colspan="6">No subscriptions added yet.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="ads-box">
-    <p>Advertisement Space (Google AdSense)</p>
-  </div>
-
-  <footer>
-    <p>© 2026 MonyGist.top • Smart Finance Tools</p>
-  </footer>
-
+<div class="container" id="app-section">
+  <h1>📊 MonyGist Manager</h1>
+  <p>Your saved calculations will show here.</p>
+  
+  <!-- Add your manager content here -->
+  
 </div>
 
-<!-- IMPORTANT: Only load script.js ONCE as type="module" -->
-<script type="module" src="script.js?v=8"></script>
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
-}
-</script>
+<script type="module" src="script.js?v=999"></script>
 </body>
-          </html>
+</html>
